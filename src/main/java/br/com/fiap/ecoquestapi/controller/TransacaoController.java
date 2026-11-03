@@ -41,4 +41,9 @@ public class TransacaoController {
     public void excluir(@PathVariable Long id) {
         service.excluir(id);
     }
+
+    @PutMapping("/{id}")
+    public TransacaoResponseDTO atualizar(@PathVariable Long id, @Valid @RequestBody TransacaoRequestDTO dto) {
+        return new TransacaoResponseDTO(service.atualizar(id, dto));
+    }
 }

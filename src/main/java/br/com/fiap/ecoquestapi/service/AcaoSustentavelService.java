@@ -54,4 +54,20 @@ public class AcaoSustentavelService {
         AcaoSustentavel acao = buscarPorId(id);
         repository.delete(acao);
     }
+
+    public AcaoSustentavel atualizar(Long id, AcaoSustentavelRequestDTO dto) {
+        AcaoSustentavel acao = buscarPorId(id);
+        TipoAcao tipoAcao = tipoAcaoRepository.findById(dto.idTipoAcao())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tipo de ação não encontrado"));
+
+        acao.setNomeAcao(dto.nomeAcao());
+        acao.setDescricao(dto.descricao());
+        acao.setImpacto(dto.impacto());
+        acao.setFatorBonus(dto.fatorBonus());
+        acao.setPontuacaoBase(dto.pontuacaoBase());
+        acao.setPeriodicidade(dto.periodicidade());
+        acao.setTipoAcao(tipoAcao);
+
+        return repository.save(acao);
+    }
 }

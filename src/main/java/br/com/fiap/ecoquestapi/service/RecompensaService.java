@@ -48,4 +48,18 @@ public class RecompensaService {
         Recompensa recompensa = buscarPorId(id);
         repository.delete(recompensa);
     }
+
+    public Recompensa atualizar(Long id, RecompensaRequestDTO dto) {
+        Recompensa recompensa = buscarPorId(id);
+
+        TipoRecompensa tipo = tipoRecompensaRepository.findById(dto.idTipoRecompensa())
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Tipo de recompensa não encontrado"));
+
+        recompensa.setTipoRecompensa(tipo);
+        recompensa.setDescricao(dto.descricao());
+        recompensa.setPontosNecessarios(dto.pontosNecessarios());
+
+        return repository.save(recompensa);
+    }
 }

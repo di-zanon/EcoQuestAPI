@@ -41,4 +41,9 @@ public class TipoAcaoController {
     public void excluir(@PathVariable Long id) {
         service.excluir(id);
     }
+
+    @PutMapping("/{id}")
+    public TipoAcaoResponseDTO atualizar(@PathVariable Long id, @Valid @RequestBody TipoAcaoRequestDTO dto) {
+        return new TipoAcaoResponseDTO(service.atualizar(id, dto));
+    }
 }

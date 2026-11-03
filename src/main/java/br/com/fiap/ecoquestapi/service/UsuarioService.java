@@ -40,4 +40,12 @@ public class UsuarioService {
         Usuario usuario = buscarPorId(id);
         usuarioRepository.delete(usuario);
     }
+
+    public Usuario atualizar(Long id, UsuarioRequestDTO dto) {
+        Usuario usuario = buscarPorId(id);
+        usuario.setNome(dto.nome());
+        usuario.setEmail(dto.email());
+        usuario.setTelefone(dto.telefone());
+        return usuarioRepository.save(usuario);
+    }
 }

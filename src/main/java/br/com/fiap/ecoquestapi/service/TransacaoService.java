@@ -65,4 +65,31 @@ public class TransacaoService {
         Transacao transacao = buscarPorId(id);
         repository.delete(transacao);
     }
+
+    public Transacao atualizar(Long id, TransacaoRequestDTO dto) {
+        Transacao transacao = buscarPorId(id);
+
+        // Regra de negócio: não permitir trocar o usuário de uma transação existente
+        // (preserva a integridade histórica e o cálculo do Ranking)
+        if (!transacao.getUsuario().getId().equals(dto.idUsuario())) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Não é permitido alterar o usuário de uma transação existente");
+        }
+
+        // Regra de negócio: não permitir trocar a ação vinculada
+        Long idAcaoAtual = transacao.getAcao() != null ? transacao.getAcao().getIdAcao() : null;
+        if (!java.util.Objects.equals(idAcaoAtual, dto.idAcao())) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Não é permitido alterar a ação sustentável de uma transação existente");
+        }
+
+        // Apenas campos mutáveis são atualizados
+        transacao.setTipo(dto.tipo());
+        transacao.setValor(dto.valor());
+        transacao.setMotivo(dto.motivo());
+
+        return repository.save(transacao);
+    }
 }

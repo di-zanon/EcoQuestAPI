@@ -39,4 +39,11 @@ public class TipoAcaoService {
         TipoAcao tipoAcao = buscarPorId(id);
         repository.delete(tipoAcao);
     }
+
+    public TipoAcao atualizar(Long id, TipoAcaoRequestDTO dto) {
+        TipoAcao tipoAcao = buscarPorId(id);
+        tipoAcao.setNomeTipo(dto.nomeTipo());
+        tipoAcao.setDescricao(dto.descricao());
+        return repository.save(tipoAcao);
+    }
 }

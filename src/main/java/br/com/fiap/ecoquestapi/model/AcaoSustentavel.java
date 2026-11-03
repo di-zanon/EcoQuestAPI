@@ -2,6 +2,8 @@ package br.com.fiap.ecoquestapi.model;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 
@@ -28,6 +30,8 @@ public class AcaoSustentavel {
     @Min(0) @Max(10)
     private Double impacto;
 
+    @DecimalMin(value = "0.0", message = "O fator bônus mínimo é 0")
+    @DecimalMax(value = "0.5", message = "O fator bônus máximo é 0.5")
     private Double fatorBonus;
 
     @Column(nullable = false)

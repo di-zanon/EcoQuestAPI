@@ -41,4 +41,10 @@ public class RecompensaController {
     public void excluir(@PathVariable Long id) {
         service.excluir(id);
     }
+
+    @PutMapping("/{id}")
+    public RecompensaResponseDTO atualizar(@PathVariable Long id,
+                                           @Valid @RequestBody RecompensaRequestDTO dto) {
+        return new RecompensaResponseDTO(service.atualizar(id, dto));
+    }
 }

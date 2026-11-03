@@ -42,4 +42,9 @@ public class UsuarioController {
     public void excluir(@PathVariable Long id) {
         usuarioService.excluir(id);
     }
+
+    @PutMapping("/{id}")
+    public UsuarioResponseDTO atualizar(@PathVariable Long id, @Valid @RequestBody UsuarioRequestDTO dto) {
+        return new UsuarioResponseDTO(usuarioService.atualizar(id, dto));
+    }
 }

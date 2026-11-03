@@ -1,10 +1,6 @@
 package br.com.fiap.ecoquestapi.dto;
 
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 public record AcaoSustentavelRequestDTO(
         @NotNull(message = "O ID do tipo de ação é obrigatório")
@@ -17,10 +13,12 @@ public record AcaoSustentavelRequestDTO(
         String descricao,
 
         @NotNull(message = "O impacto é obrigatório")
-        @Min(value = 0, message = "O impacto mínimo é 0")
-        @Max(value = 10, message = "O impacto máximo é 10")
+        @DecimalMin(value = "0.0", message = "O impacto mínimo é 0")
+        @DecimalMax(value = "10.0", message = "O impacto máximo é 10")
         Double impacto,
 
+        @DecimalMin(value = "0.0", message = "O fator bônus mínimo é 0")
+        @DecimalMax(value = "0.5", message = "O fator bônus máximo é 0.5")
         Double fatorBonus,
 
         @NotNull(message = "A pontuação base é obrigatória")

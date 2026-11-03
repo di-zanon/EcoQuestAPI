@@ -41,4 +41,9 @@ public class AcaoSustentavelController {
     public void excluir(@PathVariable Long id) {
         service.excluir(id);
     }
+
+    @PutMapping("/{id}")
+    public AcaoSustentavelResponseDTO atualizar(@PathVariable Long id, @Valid @RequestBody AcaoSustentavelRequestDTO dto) {
+        return new AcaoSustentavelResponseDTO(service.atualizar(id, dto));
+    }
 }

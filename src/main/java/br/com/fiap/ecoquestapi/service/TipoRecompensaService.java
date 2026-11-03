@@ -38,4 +38,11 @@ public class TipoRecompensaService {
         TipoRecompensa tipo = buscarPorId(id);
         repository.delete(tipo);
     }
+
+    public TipoRecompensa atualizar(Long id, TipoRecompensaRequestDTO dto) {
+        TipoRecompensa tipo = buscarPorId(id);
+        tipo.setNomeTipo(dto.nomeTipo());
+        tipo.setDescricao(dto.descricao());
+        return repository.save(tipo);
+    }
 }
